@@ -3,16 +3,19 @@ package com.example.myapplication.Model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 
+@Entity(primaryKeys = ("picture"))
 public class AdsEntity implements Parcelable {
 
     @SerializedName("picture")
     @Expose
+    @NonNull
     private String picture;
     @Expose
     private boolean solo;
