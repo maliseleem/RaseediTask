@@ -13,8 +13,7 @@ import java.util.List;
 @Dao
 public interface AdsDoa {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long[] insertData(List<AdsEntity> movies);
-
+    long[] insertData(List<AdsEntity> ads);
 
     @Query("SELECT * FROM `AdsEntity` ORDER BY `order` ASC ")
     List<AdsEntity> getAscendingOrderAds();
