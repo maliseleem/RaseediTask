@@ -35,7 +35,7 @@ public class AdsListViewModel extends ViewModel {
 
 
     /*
-     * Method called by UI to fetch movies list
+     * Method called by UI to fetch ads list
      * */
     public void loadads() {
         movieRepository.getData()
