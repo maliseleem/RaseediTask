@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.OkHttp3Downloader;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -46,13 +47,10 @@ public class ApiModule {
     OkHttpClient provideOkhttpClient(Cache cache) {
         HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
         logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-
         OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
         httpClient.cache(cache);
         httpClient.addInterceptor(logging);
         httpClient.addNetworkInterceptor(new HttpLoggingInterceptor());
-        httpClient.connectTimeout(30, TimeUnit.SECONDS);
-        httpClient.readTimeout(30, TimeUnit.SECONDS);
         return httpClient.build();
     }
 
@@ -73,5 +71,9 @@ public class ApiModule {
     AdsApiService provideAdsApiService(Retrofit retrofit) {
         return retrofit.create(AdsApiService.class);
     }
-
+    @Provides
+    @Singleton
+    OkHttp3Downloader okHttp3Downloader(OkHttpClient okHttpClient) {
+        return new OkHttp3Downloader(okHttpClient);
+    }
 }

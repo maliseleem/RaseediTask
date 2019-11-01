@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.api.Status;
 import com.example.myapplication.viewmodel.AdsListViewModel;
 import com.example.myapplication.viewmodel.ViewModelFactory;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -22,10 +25,14 @@ import dagger.android.AndroidInjection;
 public class MainActivity extends AppCompatActivity {
     @Inject
     ViewModelFactory viewModelFactory;
+    @Inject
+    Picasso picasso;
+
     private AdsListViewModel adsListViewModel;
     RecyclerView recyclerView;
     AdsAdapter adsAdapter;
     TextView load;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -42,16 +49,23 @@ public class MainActivity extends AppCompatActivity {
 
         initialiseViewModel();
     }
+
     private void initialiseViewModel() {
         adsListViewModel = ViewModelProviders.of(this, viewModelFactory).get(AdsListViewModel.class);
         adsListViewModel.getLiveData().observe(this, resource -> {
-            if(resource.status == Status.LOADING) {
+            if (resource.status == Status.LOADING) {
                 displayLoader();
-            } else if(!resource.data.isEmpty()) {
+            } else if (!resource.data.isEmpty()) {
                 load.setVisibility(View.GONE);
                 recyclerView.setVisibility(View.VISIBLE);
-                AdsAdapter adsAdapter =  new AdsAdapter(resource.data);
+                AdsAdapter adsAdapter = new AdsAdapter(resource.data, picasso);
                 recyclerView.setAdapter(adsAdapter);
+                adsAdapter.getViewClickedObservable().subscribe(item -> {
+                    if (item.getUrl().isEmpty()) return;
+                    Intent i = new Intent(Intent.ACTION_VIEW,
+                            Uri.parse(item.getUrl()));
+                    startActivity(i);
+                });
             } else {
                 load.setText("error");
                 load.setVisibility(View.VISIBLE);

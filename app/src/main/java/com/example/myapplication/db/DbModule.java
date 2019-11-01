@@ -23,6 +23,11 @@ public class DbModule {
                 AdsDatabase.class, "Ads.db")
                 .allowMainThreadQueries().build();
     }
+
+
+    /*
+     * The method returns the AdsDoa object
+     * */
     @Provides
     @Singleton
     AdsDoa provideAdsDao(@NonNull AdsDatabase appDatabase) {
