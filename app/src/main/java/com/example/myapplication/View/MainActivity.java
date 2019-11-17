@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adsAdapter);
                 adsAdapter.getViewClickedObservable().subscribe(item -> {
                     if (item.getUrl().isEmpty()) return;
-                    Intent i = new Intent(Intent.ACTION_VIEW,
-                            Uri.parse(item.getUrl()));
-                    startActivity(i);
+//                    Intent i = new Intent(Intent.ACTION_VIEW,
+//                            Uri.parse(item.getUrl()));
+//                    startActivity(i);
                 });
             } else {
                 load.setText("error");
