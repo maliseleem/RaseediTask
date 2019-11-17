@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/load"
-        android:text="loading ...."
+        android:text="@string/loading"
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="25sp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
