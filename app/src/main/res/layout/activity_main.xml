@@ -21,6 +21,6 @@
         android:id="@+id/load"
         android:text="loading ...."
         android:textAlignment="center"
-        android:textSize="20sp"
+        android:textSize="25sp"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
