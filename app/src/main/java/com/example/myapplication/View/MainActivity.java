@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 //                    startActivity(i);
                 });
             } else {
-                load.setText("error");
+                load.setText("error with some issuse");
                 load.setVisibility(View.VISIBLE);
                 recyclerView.setVisibility(View.GONE);
             }
